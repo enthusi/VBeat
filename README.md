@@ -2,9 +2,9 @@
 VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priorartgames.eu).
 
 ## Credits
-all code: Martin 'enthusi' Wendt
-all audio: Kamil 'jammer' Wolnikowski
-8x16 font: Oliver 'v3to' Lindau
+- code: *Martin 'enthusi' Wendt*
+- audio: *Kamil 'jammer' Wolnikowski*
+- 8x16 font: *Oliver 'v3to' Lindau*
 
 ## Specs
 - 100% handwritten v810 Assembler
@@ -19,11 +19,11 @@ all audio: Kamil 'jammer' Wolnikowski
 - up to 30 instruments supported
 
 ###  supported effects in S3M tracker:
--- tempo (currently in units of frames) (can be set at any column and without an instrument)
--- volume 0-63 (gets divided to 0-15 by player!) (can be set without an instrument)
--- panning (S8x) x=0-6 from all left to all right. 3 being center 
--- continue with pattern xx (Bxx)  (can be set at any column)
--- continue with NEXT pattern (break) as 'C00'  (identical to B3F)
+- tempo (currently in units of frames) (can be set at any column and without an instrument)
+- volume 0-63 (gets divided to 0-15 by player!) (can be set without an instrument)
+- panning (S8x) x=0-6 from all left to all right. 3 being center 
+- continue with pattern xx (Bxx)  (can be set at any column)
+- continue with NEXT pattern (break) as 'C00'  (identical to B3F)
 
 ## The player
 ![screenshot](http://martinwendt.de/2021/vbeat/example-screen.png)
