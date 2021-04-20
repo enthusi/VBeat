@@ -58,60 +58,58 @@ With up/down you can change the rate of player calls for the 100us timer.
 basenote = note as given in S3M\
 all stored in songdata.vbasm\
 set up *INSTRUMENT_TABLE* \
-example:\
+example:
 ```
 INSTRUMENT_TABLE 
     dw 0;dummy ALWAYS at first position
-    dw script_instrument_trap0 ;1
-    dw script_instrument_trap1 ;2
-    dw script_instrument_trap2 ;3
+    dw script_instrument_0 
+    dw script_instrument_1
+    dw script_instrument_2
   ```  
-Controls are (in this order!)
-HARDNOTE    equ  64  ;16  does NOT affect BASENOTE (use it in every row that you need it)
-VOL         equ   8  ;8 (4)
-WAVE        equ   4  ;8 (3)
-NOTE_OFF    equ  16  ;8  based on BASENOTE (changes BASENOTE!)
-FREQ_OFF    equ  32  ;8  based on BASENOTE (can now be used with NOTE_OFF)
-LOOPER      equ 128  ;8
+Controls are (in this order!)\
+- HARDNOTE    equ  64  ;16 bit  does NOT affect BASENOTE (use it in every row that you need it)
+- VOL         equ   8  ;8 (4)
+- WAVE        equ   4  ;8 (3)
+- NOTE_OFF    equ  16  ;8  based on BASENOTE (changes BASENOTE!)
+- FREQ_OFF    equ  32  ;8  based on BASENOTE (can now be used with NOTE_OFF)
+- LOOPER      equ 128  ;8
 
-HARDNOTE: sets a numerical note temporary:  0 = d#2 ...
-it takes TWO bytes now:
-byte1: numerical note (will not sound like it!) in half-tone steps
-byte2: fine shift relative to byte1 in +/- 127
+*HARDNOTE*: sets a numerical note temporary:  0 = d#2 ...\
+it takes TWO bytes now:\
+byte1: numerical note (will not sound like it!) in half-tone steps\
+byte2: fine shift relative to byte1 in +/- 127\
 
-VOL 0..63 changes volume (overrides channel volume!)
+*VOL* 0..63 changes volume (overrides channel volume!)
 
-WAVE sets waveform 0-5 for channel1-5
-
+*WAVE* sets waveform 0-5 for channel1-5\
 WAVE in channel6: noise-form + $80
 
-NOTE_OFF signed  byte as offset to current basenote (or normal instrument note)
-    in steps of notes. It changes the basenote to basenote + NOTE_OFF
-FREQ_OFF signed  byte as offset to current basenote (or normal instrument note)
-    in setps of 16bit frequency which CAN be finer than notes (depends on range)
-LOOPER use this to loop within an instrument definition, use no other command on that line!
+*NOTE_OFF* signed  byte as offset to current basenote (or normal instrument note)
+    in steps of notes. It changes the basenote to basenote + NOTE_OFF\
+*FREQ_OFF* signed  byte as offset to current basenote (or normal instrument note)
+    in setps of 16bit frequency which CAN be finer than notes (depends on range)\
+*LOOPER* use this to loop within an instrument definition, use no other command on that line!
 
--> Always end instrument definition with 'db 0'
--> End with Vol 0 if it should stop playing
--> use (-5 & $ff) for negativ values if the assembler complains!
+**Always end instrument definition with 'db 0'**
+**End with Vol 0 if it should stop playing**
+*use (-5 & $ff) for negativ values if the assembler complains!*
 
-Exchange wave tables on the fly (any number in predefined sets).
-instrument 31 means: change wave(s)
-the note then defines the new wave set: d#2 = 0
-The player shows set number + arrow
-the wave change will occur on next pattern-read!
-A set consists of 5 pointers into your wave data plus 3 filler bytes.
+### Exchange wave tables on the fly (any number in predefined sets).
+instrument 31 means: change wave(s)\
+the note then defines the new wave set: d#2 = 0\
+The player shows set number + arrow\
+the wave change will occur on next pattern-read!\
+A set consists of 5 pointers into your wave data plus 3 filler bytes.\
 A pointer of -1 does not change the corresponding wave.
-
+```
 WAVESET_TABLE
     db  0, 1, 2, 3, 4, 0, 0, 0 ;sets wave0-4 to the first 5 waves
     db -1, 5, 6,-1,-1, 0, 0, 0 ;only changes wave 1 and 2 (to 5th and 6th wave data)
+```    
     
-    
-EXAMPLES:
-;------------------------------------------------------
-;Vibrato instrument:
-
+### Instrument examples
+*Vibrato instrument:*
+```
 script_instrument1
     db 2, WAVE | NOTE_OFF, 1, 1
 _loopstart
@@ -127,17 +125,17 @@ _loopstart
 _loopend
     db 1, LOOPER, (_loopend - _loopstart )
     db 0
-;------------------------------------------------------    
-;simple single tone for ~ 1 second
-
+ ```
+*simple single tone for ~ 1 second*
+```
 script_instrument5
     db 50, WAVE 4
     db 1, VOL,0
     db 0
-   
-;------------------------------------------------------
-;bass+hihat for channel6 (-> WAVE = $86)
+ ```
 
+*bass+hihat for channel6 (-> WAVE = $86)*
+```
 script_instrument_trap0
     db 5, HARDNOTE | VOL | WAVE, 15, 63, $86
     db 1, VOL, 32
@@ -152,30 +150,20 @@ _loopstart
 _loopend
     db 1, LOOPER, (_loopend - _loopstart )
     db 0
-;------------------------------------------------------    
-;test instrument in channel 6 that plays 3 noise patterns
-
-script_instrument_trap0old
-    db 20, VOL | WAVE | NOTE_OFF, 63, $80,0
-    db 2, VOL, 0
-    db 20, VOL | WAVE | NOTE_OFF, 63, $81,0
-    db 2, VOL, 0
-    db 20, VOL | WAVE | NOTE_OFF, 63, $82,0
-    db 1, VOL, 0
-    db 0
-    
-;==========================================================================
-COLUMN DATA FORMAT
-
-'col_ptr0.dat'      contains the indexes to unique pattern columns for channel 0
-'col_offsets0.dat'  contains the 16bit offsets per unique pattern column into stream data
-'channel0_stream4.dat' the actual pattern data for channel 0.
+```
 
 
-example pattern:
+## Engine data format
+- 'col_ptr0.dat'      contains the indexes to unique pattern columns for channel 0
+- 'col_offsets0.dat'  contains the 16bit offsets per unique pattern column into stream data
+- 'channel0_stream4.dat' the actual pattern data for channel 0.
+
+example pattern:\
+```
 0e 41 85 07 0e 01 05 0e 01 07 0e 01 09 14 01 55
-
+```
 means:
+```
 0e ; bit0 = 0 -> no skip single row, >>1 = Note = 7. 7-3 = 4 -> G-2
 41 ; &0x3f = 1 -> instrument. 0x40 -> CMD coming in
 85 ; requested CMD byte (bit 7 =tempo, bit6 = break. Here: tempo to 5
@@ -193,8 +181,9 @@ means:
 01 ; instrument 1
 55 ; skip 55//2 +1 = 43 rows
 -> all 64 rows done
-
-SCHEMATIC:
+```
+## Engine work flow
+```
 1) first set which pattern to play next:
 
 read current playlist pointer
@@ -293,8 +282,9 @@ if LOOPER:
     read signed byte
     add offset to current instrument pointer + correction for offset
     next instrument update will read from new offset address!
-
-;==========================================================================
+```
+### Note Table (not required by user)
+```
 output of gen_note_table.py (python 2)
 ;you can tell by the frequency bytes how a FREQ_OFF +/- affects the note
 ;-> much finer grain that NOTE_OFF for low notes, same as NOTE_OFF for high notes!
@@ -397,8 +387,10 @@ HARDNOTE, base, note, frequency, VB_ferquency, offset in %, frequency bytes
 94	113	c#10	17739.7	17361.0	2.1	7f7
 95	114	d10	18794.5	19531.0	3.9	7f8
 96	115	d#10	19912.1	19531.0	1.9	7f8
-
-====================================================
+```
+## Memory footprint (roughly)
+![screenshot](http://martinwendt.de/2021/vbeat/memmap.png)
+```
 size
 hex   dec   
 0092 (146)	 VARIABLES
@@ -412,6 +404,7 @@ hex   dec
 1b48 (6984)	 SONGDATA
 030f (783)	 INSTRUMENTS
 1668 (5736)	 AUDIODATA
+```
 
 ## Thanks
 - To GuyPerfect for his deep skills and wonderful [tech specs](http://perfectkiosk.net/stsvb.html) for the Virtual Boy.
