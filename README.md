@@ -1,6 +1,6 @@
 # VBeat
-A tracker based free *VirtualBeat Audio Engine* for the ***Virtual Boy*** console by [PriorArt](http://priorartgames.eu).
-Download 16KB ROM image directly: [VBeat16k_PriorArt.vb] http://martinwendt.de/2021/vbeat/VBeat16k_PriorArt.vb).
+A tracker based free *VirtualBeat Audio Engine* for the ***Virtual Boy*** console by [PriorArt](http://priorartgames.eu).\
+Download 16KB ROM image directly: [VBeat16k_PriorArt.vb] (http://martinwendt.de/2021/vbeat/VBeat16k_PriorArt.vb).
 ## In action
 - [MP3 recording from real hardware](http://martinwendt.de/2021/vbeat/vbeat_recording.mp3)
 - YouTube recording:\
