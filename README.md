@@ -1,5 +1,5 @@
 # VBeat
-VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priorartgames.eu).
+A tracker based free *VirtualBeat Audio Engine* for the ***Virtual Boy*** console by [PriorArt](http://priorartgames.eu).
 ## In action
 - [MP3 recording from real hardware](http://martinwendt.de/2021/vbeat/vbeat_recording.mp3)
 - YouTube recording:\
