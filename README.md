@@ -1,15 +1,13 @@
 # VBeat
-VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priorartgames.eu).\
+VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priorartgames.eu).
 ## In action
 - [MP3 recording from real hardware](http://martinwendt.de/2021/vbeat/vbeat_recording.mp3)
 - YouTube recording:\
 [![Vbeat on YouTube](http://img.youtube.com/vi/GvSOXE-GMVo/0.jpg)](http://www.youtube.com/watch?v=GvSOXE-GMVo "VirtualBeat Audio Engine for the Virtual Boy")
-
 ## Credits
 - code: *Martin 'enthusi' Wendt*
 - audio: *Kamil 'jammer' Wolnikowski*
 - 8x16 font: *Oliver 'v3to' Lindau*
-
 ## Specs
 - 100% handwritten v810 Assembler
 - provided song takes up to 450us (~2% of a frame which is 20ms) for heavy frames
@@ -21,20 +19,17 @@ VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priora
 -  exhange 1-5 WAVE tables on the fly
 - lowest direct note is d#2 (hardware limit)
 - up to 30 instruments supported
-
 ###  supported effects in S3M tracker:
 - tempo (currently in units of frames) (can be set at any column and without an instrument)
 - volume 0-63 (gets divided to 0-15 by player!) (can be set without an instrument)
 - panning (S8x) x=0-6 from all left to all right. 3 being center 
 - continue with pattern xx (Bxx)  (can be set at any column)
 - continue with NEXT pattern (break) as 'C00'  (identical to B3F)
-
 ## The player
 ![screenshot](http://martinwendt.de/2021/vbeat/example-screen.png)
 The source code provides the full player as well as a full framework to assemble
 the example tune with player. 
 Further down you find an explanation of the information shown by the player.
-
 ## Compilation
 To assemble the provided sources you need the official ISAS assembler (ISAS32.EXE) + linker (ISLK32.EXE)
 as well as some tool to extract a VB rom file (.vb) from the native .isx format (VUIC.EXE).
@@ -42,7 +37,6 @@ The provided Makefile assumes all of those three binaries to be present.
 The engine was developed on a linux system. All tools run well in WINE or DOSBOX.
 You can find the tools as part of the official SDK packs for later consoles!
 [SDK package](https://www.retroreversing.com/official-gameboy-software-dev-kit)
-
 ## The player documentation
 The VBeat player as provided shows the current pattern row on the left.
 Followed by pattern data for all 6 channels.
@@ -50,14 +44,13 @@ From left to right the following is shown: note, instrument, volume, panning
 The command to exchange the set of waves is indicated by the set number and an arrow.
 The top left numbers show the current playlist position, the current pattern and the current
 pattern speed (pattern read every n frames).
-There is a small arrow next to the channel numbers on top. You can move it with left/right 
-and **mute/unmute individual channels with the A-button.**
+There is a small arrow next to the channel numbers on top.\
+You can move it with left/right 
+and **mute/unmute individual channels with the A-button.**\
 The **B-button toggles between the main song and some demo patterns.**
 With up/down you can change the rate of player calls for the 100us timer.
 ![screenshot](http://martinwendt.de/2021/vbeat/explain.png)
-
 # The Engine
-
 ## How to use it
 - compose your S3M, feel free to learn by editing the provided tune `VBDemo01.s3m`.
 - convert it into proper data format: `python3 tracker2vb.py VBDemo01.s3m`.
@@ -85,7 +78,7 @@ INSTRUMENT_TABLE
     dw script_instrument_1
     dw script_instrument_2
   ```  
-Controls are (in this order!)\
+Controls are (in this order!)
 - HARDNOTE    equ  64  ;16 bit  does NOT affect BASENOTE (use it in every row that you need it)
 - VOL         equ   8  ;8 (4)
 - WAVE        equ   4  ;8 (3)
@@ -96,23 +89,18 @@ Controls are (in this order!)\
 *HARDNOTE*: sets a numerical note temporary:  0 = d#2 ...\
 it takes TWO bytes now:\
 byte1: numerical note (will not sound like it!) in half-tone steps\
-byte2: fine shift relative to byte1 in +/- 127\
-
+byte2: fine shift relative to byte1 in +/- 127
 *VOL* 0..63 changes volume (overrides channel volume!)
-
 *WAVE* sets waveform 0-5 for channel1-5\
 WAVE in channel6: noise-form + $80
-
 *NOTE_OFF* signed  byte as offset to current basenote (or normal instrument note)
     in steps of notes. It changes the basenote to basenote + NOTE_OFF\
 *FREQ_OFF* signed  byte as offset to current basenote (or normal instrument note)
     in setps of 16bit frequency which CAN be finer than notes (depends on range)\
 *LOOPER* use this to loop within an instrument definition, use no other command on that line!
-
 **Always end instrument definition with 'db 0'**
 **End with Vol 0 if it should stop playing**
 *use (-5 & $ff) for negativ values if the assembler complains!*
-
 ### Exchange wave tables on the fly (any number in predefined sets).
 instrument 31 means: change wave(s)\
 the note then defines the new wave set: d#2 = 0\
