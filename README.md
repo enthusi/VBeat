@@ -2,7 +2,8 @@
 VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priorartgames.eu).\
 ## In action
 - [MP3 recording from real hardware](http://martinwendt.de/2021/vbeat/vbeat_recording.mp3)
-- [![Vbeat on YouTube](http://img.youtube.com/vi/GvSOXE-GMVo/0.jpg)](http://www.youtube.com/watch?v=GvSOXE-GMVo "VirtualBeat Audio Engine for the Virtual Boy")
+- YouTube recording:\
+[![Vbeat on YouTube](http://img.youtube.com/vi/GvSOXE-GMVo/0.jpg)](http://www.youtube.com/watch?v=GvSOXE-GMVo "VirtualBeat Audio Engine for the Virtual Boy")
 
 ## Credits
 - code: *Martin 'enthusi' Wendt*
