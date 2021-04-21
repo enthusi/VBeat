@@ -10,8 +10,7 @@ VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priora
 - 8x16 font: *Oliver 'v3to' Lindau*
 ## Specs
 - 100% handwritten v810 Assembler
-- provided song takes up to 450us (~2% of a frame which is 20ms) for heavy frames
-  on average much less!
+- player takes up to 450us (~2% of a frame which is 20ms) for heavy frames -  on average much less!
 -  converts S3M modules to engine format (we use the great free [Schismtracker](http://schismtracker.org/screenie.png))
 - all 6 channels
 - channel 6 dedicated to 'noise' instruments
@@ -57,8 +56,8 @@ With up/down you can change the rate of player calls for the 100us timer.
 - run `make` or alternatively execute the following commands:
  ```
  wine ISAS32.exe -w 3  -t engine.vbasm -o music.o
-	wine ISLK32.exe music.o -t -v -map -o music.isx
-	wine VUIC.EXE music.isx music.vb
+wine ISLK32.exe music.o -t -v -map -o music.isx
+wine VUIC.EXE music.isx music.vb
 ```
 ## Wave forms
 We provide all the wave forms (a 32 Bytes) used in the Jazz tune as well as the technical demo.\
@@ -113,8 +112,7 @@ WAVESET_TABLE
     db  0, 1, 2, 3, 4, 0, 0, 0 ;sets wave0-4 to the first 5 waves
     db -1, 5, 6,-1,-1, 0, 0, 0 ;only changes wave 1 and 2 (to 5th and 6th wave data)
 ```    
-    
-### Instrument examples
+## Instrument examples
 *Vibrato instrument:*
 ```
 script_instrument1
@@ -169,7 +167,7 @@ Note, how the upper few values have a certain period (which is still longer than
 - 'col_offsets0.dat'  contains the 16bit offsets per unique pattern column into stream data
 - 'channel0_stream4.dat' the actual pattern data for channel 0.
 
-example pattern:\
+example pattern:
 ```
 0e 41 85 07 0e 01 05 0e 01 07 0e 01 09 14 01 55
 ```
@@ -295,11 +293,12 @@ if LOOPER:
     next instrument update will read from new offset address!
 ```
 ### Note Table (not required by user)
+We wrote a tool to find the best 16bit frequency register values for the classical notes.
+output of gen_note_table.py (python 2).
+You can tell by the frequency bytes how a FREQ_OFF +/- affects the note
+with a much finer grain than NOTE_OFF for low notes. For higher notes, it becomes the same as NOTE_OFF!
 ```
-output of gen_note_table.py (python 2)
-;you can tell by the frequency bytes how a FREQ_OFF +/- affects the note
-;-> much finer grain that NOTE_OFF for low notes, same as NOTE_OFF for high notes!
-HARDNOTE, base, note, frequency, VB_ferquency, offset in %, frequency bytes
+the columns show: HARDNOTE, base, note, frequency, VB_ferquency, offset in %, 16bit freq. register values
 
 0	19	d#2	77.8	78.0	0.3	2d
 1	20	e2	82.4	82.0	0.5	8f
@@ -400,6 +399,10 @@ HARDNOTE, base, note, frequency, VB_ferquency, offset in %, frequency bytes
 96	115	d#10	19912.1	19531.0	1.9	7f8
 ```
 ## Memory footprint (roughly)
+The Player itself (running in timer IRQ, but also possibly in Draw IRQ) with all features is less than 2 KB in size.\
+The instrument definitions of the demo song are about 0.5 KB in size. \
+The total songdata (instruments, tables and patterns) is just below 7KB in size (not further compressed in ROM).\
+About 150 Bytes of RAM are used by the player (you can compress the songdata and depack into RAM of course).\
 ![memory map](http://martinwendt.de/2021/vbeat/memmap.png)
 ```
 size
@@ -416,7 +419,12 @@ hex   dec
 030f (783)	 INSTRUMENTS
 1668 (5736)	 AUDIODATA
 ```
-
+## Noteworthy Spin Offs
+- ***LZ4 compression***: the engine data format itself is already pretty effective. But I wrote a depacker for the open LZ4 compression format in assembler. 
+The player uses a compressed letter character set- as well as compressed world map for the masks to separate the channel columns from the background.
+The resulted code is [published under BSD 3-clause](https://github.com/enthusi/lz4_v810_decode) and recognized on the [official LZ4 page](http://lz4.github.io/lz4/).
+- ***HEXFONT***: A very useful debug feature (that now made it into the final player) is the hexfont charset which shows 00-ff as 8x8 character. You can write 
+the actual value of a byte into the world map and it gets displayed in hex digitis. The code to generate this font including the all the data is less than 256 Bytes long.
 ## Thanks
 - To GuyPerfect for his deep skills and wonderful [tech specs](http://perfectkiosk.net/stsvb.html) for the Virtual Boy.
-- To Kresna for writing and publishing the assembly source for this very nice game [Red Square](http://slum.online/vb)
+- To Kresna for writing and publishing the assembly source for this very nice game [Red Square](http://slum.online/vb).
