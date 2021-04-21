@@ -423,9 +423,10 @@ hex   dec
 ## Noteworthy Spin Offs
 - ***LZ4 compression***: the engine data format itself is already pretty effective. But I wrote a depacker for the open LZ4 compression format in assembler. 
 The player uses a compressed letter character set- as well as compressed world map for the masks to separate the channel columns from the background.
-The resulted code is [published under BSD 3-clause](https://github.com/enthusi/lz4_v810_decode) and recognized on the [official LZ4 page](http://lz4.github.io/lz4/).
+The resulted code is published under BSD 3-clause [here](https://github.com/enthusi/lz4_v810_decode) and recognized on the [official LZ4 page](http://lz4.github.io/lz4/).
 - ***HEXFONT***: A very useful debug feature (that now made it into the final player) is the hexfont charset which shows 00-ff as 8x8 character. You can write 
 the actual value of a byte into the world map and it gets displayed in hex digitis. The code to generate this font including the all the data is less than 256 Bytes long.
+You find the public repository [here](https://github.com/enthusi/hexfont).
 ## Thanks
 - To GuyPerfect for his deep skills and wonderful [tech specs](http://perfectkiosk.net/stsvb.html) for the Virtual Boy.
 - To Kresna for writing and publishing the assembly source for this very nice game [Red Square](http://slum.online/vb).
