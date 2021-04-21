@@ -1,5 +1,8 @@
 # VBeat
-VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priorartgames.eu).
+VirtualBeat Audio Engine for the Virtual Boy console by [PriorArt](http://priorartgames.eu).\
+## In action
+- [MP3 recording from real hardware](http://martinwendt.de/2021/vbeat/vbeat_recording.mp3)
+- [![Vbeat on YouTube](http://img.youtube.com/vi/GvSOXE-GMVo/0.jpg)](http://www.youtube.com/watch?v=GvSOXE-GMVo "VirtualBeat Audio Engine for the Virtual Boy")
 
 ## Credits
 - code: *Martin 'enthusi' Wendt*
@@ -53,6 +56,21 @@ With up/down you can change the rate of player calls for the 100us timer.
 ![screenshot](http://martinwendt.de/2021/vbeat/explain.png)
 
 # The Engine
+
+## How to use it
+- compose your S3M, feel free to learn by editing the provided tune `VBDemo01.s3m`.
+- convert it into proper data format: `python3 tracker2vb.py VBDemo01.s3m`.
+- run `make` or alternatively execute the following commands:
+ ```
+ wine ISAS32.exe -w 3  -t engine.vbasm -o music.o
+	wine ISLK32.exe music.o -t -v -map -o music.isx
+	wine VUIC.EXE music.isx music.vb
+```
+## Wave forms
+We provide all the wave forms (a 32 Bytes) used in the Jazz tune as well as the technical demo.\
+You will also find a tool to create wave forms from PNG images (64x32 pixels): `scanimage.py`.\
+Usage:
+```python3 scanimage3.py sine.png```
 
 ## Instruments
 basenote = note as given in S3M\
@@ -151,7 +169,11 @@ _loopend
     db 1, LOOPER, (_loopend - _loopstart )
     db 0
 ```
-
+## Noise instruments
+We provide a tool to show all 8 possible noise patterns , along with their repetition length (which directly influence the perceived pitch):
+`python lfsr.py` which creates this graph:
+![noise patterns](http://martinwendt.de/2021/vbeat/noise.png)
+Note, how the upper few values have a certain period (which is still longer than the 32 wave table samples played at lowest frequency for channels 1-5).
 
 ## Engine data format
 - 'col_ptr0.dat'      contains the indexes to unique pattern columns for channel 0
@@ -389,7 +411,7 @@ HARDNOTE, base, note, frequency, VB_ferquency, offset in %, frequency bytes
 96	115	d#10	19912.1	19531.0	1.9	7f8
 ```
 ## Memory footprint (roughly)
-![screenshot](http://martinwendt.de/2021/vbeat/memmap.png)
+![memory map](http://martinwendt.de/2021/vbeat/memmap.png)
 ```
 size
 hex   dec   
