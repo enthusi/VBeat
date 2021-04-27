@@ -56,7 +56,7 @@ With up/down you can change the rate of player calls for the 100us timer.
 - convert it into proper data format: `python3 tracker2vb.py VBDemo01.s3m`.
 - run `make` or alternatively execute the following commands:
  ```
- wine ISAS32.exe -w 3  -t engine.vbasm -o music.o
+ wine ISAS32.exe -w 3  -t engine.asm -o music.o
 wine ISLK32.exe music.o -t -v -map -o music.isx
 wine VUIC.EXE music.isx music.vb
 ```
