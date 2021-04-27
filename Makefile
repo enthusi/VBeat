@@ -1,4 +1,4 @@
-SOURCE=engine.vbasm
+SOURCE=engine.asm
 EMU=mednafen
 
 audio.vb: $(SOURCE) VBDemo01_playlist.bin
