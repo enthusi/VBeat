@@ -35,7 +35,9 @@ To assemble the provided sources you need the official ISAS assembler (ISAS32.EX
 as well as some tool to extract a VB rom file (.vb) from the native .isx format (VUIC.EXE).
 The provided Makefile assumes all of those three binaries to be present.
 The engine was developed on a linux system. All tools run well in WINE or DOSBOX.
-You can find the tools as part of the official SDK packs for later consoles!
+The tools are available here for example:
+[ISAS](https://www.virtual-boy.com/tools/isas-islk-dev-kit/).
+You can find the tools as part of the official SDK packs for later consoles as well.
 [SDK package](https://www.retroreversing.com/official-gameboy-software-dev-kit)
 ## The player documentation
 The VBeat player as provided shows the current pattern row on the left.
