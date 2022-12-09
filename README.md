@@ -91,13 +91,13 @@ Controls are (in this order!)
 *HARDNOTE*: sets a numerical note temporary:  0 = d#2 ...\
 it takes TWO bytes now:\
 byte1: numerical note (will not sound like it!) in half-tone steps\
-byte2: fine shift relative to byte1 in +/- 127
-*VOL* 0..63 changes volume (overrides channel volume!)
+byte2: fine shift relative to byte1 in +/- 127\
+*VOL* 0..63 changes volume (overrides channel volume!)\
 *WAVE* sets waveform 0-5 for channel1-5\
-WAVE in channel6: noise-form + $80
-*NOTE_OFF* signed  byte as offset to current basenote (or normal instrument note)
+WAVE in channel6: noise-form + $80\
+*NOTE_OFF* signed  byte as offset to current basenote (or normal instrument note)\
     in steps of notes. It changes the basenote to basenote + NOTE_OFF\
-*FREQ_OFF* signed  byte as offset to current basenote (or normal instrument note)
+*FREQ_OFF* signed  byte as offset to current basenote (or normal instrument note)\
     in setps of 16bit frequency which CAN be finer than notes (depends on range)\
 *LOOPER* use this to loop within an instrument definition, use no other command on that line!
 **Always end instrument definition with 'db 0'**
