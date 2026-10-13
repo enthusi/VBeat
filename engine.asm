@@ -863,70 +863,77 @@ _we_exchange_this_wave
     add r29,r6 ;absolute pointer
     ;as fast as we think we can here!
 
-    in.b  $00[r6], r8  ;src
+    ld.w  $00[r6], r8  ;src
     st.b  r8,$00[r5]  ;dst
-    in.b  $01[r6], r8  ;src
-    st.b  r8,$04[r5]  ;dst
-    in.b  $02[r6], r8  ;src
-    st.b  r8,$08[r5]  ;dst
-    in.b  $03[r6], r8  ;src
-    st.b  r8,$0c[r5]  ;dst
-    in.b  $04[r6], r8  ;src
+    shr   8,r8
+    st.b  r8,$04[r5]
+    shr   8,r8
+    st.b  r8,$08[r5]
+    shr   8,r8
+    st.b  r8,$0c[r5]
+
+    ld.w  $04[r6], r8  ;src
     st.b  r8,$10[r5]  ;dst
-    in.b  $05[r6], r8  ;src
-    st.b  r8,$14[r5]  ;dst
-    in.b  $06[r6], r8  ;src
-    st.b  r8,$18[r5]  ;dst
-    in.b  $07[r6], r8  ;src
-    st.b  r8,$1c[r5]  ;dst
-    in.b  $08[r6], r8  ;src
+    shr   8,r8
+    st.b  r8,$14[r5]
+    shr   8,r8
+    st.b  r8,$18[r5]
+    shr   8,r8
+    st.b  r8,$1c[r5]
+
+    ld.w  $08[r6], r8  ;src
     st.b  r8,$20[r5]  ;dst
-    in.b  $09[r6], r8  ;src
-    st.b  r8,$24[r5]  ;dst
-    in.b  $0a[r6], r8  ;src
-    st.b  r8,$28[r5]  ;dst
-    in.b  $0b[r6], r8  ;src
-    st.b  r8,$2c[r5]  ;dst
-    in.b  $0c[r6], r8  ;src
+    shr   8,r8
+    st.b  r8,$24[r5]
+    shr   8,r8
+    st.b  r8,$28[r5]
+    shr   8,r8
+    st.b  r8,$2c[r5]
+
+    ld.w  $0c[r6], r8  ;src
     st.b  r8,$30[r5]  ;dst
-    in.b  $0d[r6], r8  ;src
-    st.b  r8,$34[r5]  ;dst
-    in.b  $0e[r6], r8  ;src
-    st.b  r8,$38[r5]  ;dst
-    in.b  $0f[r6], r8  ;src
-    st.b  r8,$3c[r5]  ;dst
-    in.b  $10[r6], r8  ;src
+    shr   8,r8
+    st.b  r8,$34[r5]
+    shr   8,r8
+    st.b  r8,$38[r5]
+    shr   8,r8
+    st.b  r8,$3c[r5]
+
+    ld.w  $10[r6], r8  ;src
     st.b  r8,$40[r5]  ;dst
-    in.b  $11[r6], r8  ;src
-    st.b  r8,$44[r5]  ;dst
-    in.b  $12[r6], r8  ;src
-    st.b  r8,$48[r5]  ;dst
-    in.b  $13[r6], r8  ;src
-    st.b  r8,$4c[r5]  ;dst
-    in.b  $14[r6], r8  ;src
+    shr   8,r8
+    st.b  r8,$44[r5]
+    shr   8,r8
+    st.b  r8,$48[r5]
+    shr   8,r8
+    st.b  r8,$4c[r5]
+
+    ld.w  $14[r6], r8  ;src
     st.b  r8,$50[r5]  ;dst
-    in.b  $15[r6], r8  ;src
-    st.b  r8,$54[r5]  ;dst
-    in.b  $16[r6], r8  ;src
-    st.b  r8,$58[r5]  ;dst
-    in.b  $17[r6], r8  ;src
-    st.b  r8,$5c[r5]  ;dst
-    in.b  $18[r6], r8  ;src
+    shr   8,r8
+    st.b  r8,$54[r5]
+    shr   8,r8
+    st.b  r8,$58[r5]
+    shr   8,r8
+    st.b  r8,$5c[r5]
+
+    ld.w  $18[r6], r8  ;src
     st.b  r8,$60[r5]  ;dst
-    in.b  $19[r6], r8  ;src
-    st.b  r8,$64[r5]  ;dst
-    in.b  $1a[r6], r8  ;src
-    st.b  r8,$68[r5]  ;dst
-    in.b  $1b[r6], r8  ;src
-    st.b  r8,$6c[r5]  ;dst
-    in.b  $1c[r6], r8  ;src
+    shr   8,r8
+    st.b  r8,$64[r5]
+    shr   8,r8
+    st.b  r8,$68[r5]
+    shr   8,r8
+    st.b  r8,$6c[r5]
+    
+    ld.w  $1c[r6], r8  ;src
     st.b  r8,$70[r5]  ;dst
-    in.b  $1d[r6], r8  ;src
-    st.b  r8,$74[r5]  ;dst
-    in.b  $1e[r6], r8  ;src
-    st.b  r8,$78[r5]  ;dst
-    in.b  $1f[r6], r8  ;src
-    st.b  r8,$7c[r5]  ;dst
+    shr   8,r8
+    st.b  r8,$74[r5]
+    shr   8,r8
+    st.b  r8,$78[r5]
+    shr   8,r8
+    st.b  r8,$7c[r5]
 _skip_this_wave    
 
     addi $80, r5, r5 ;next wave ram
