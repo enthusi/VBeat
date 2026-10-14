@@ -820,12 +820,12 @@ _loop
         
         
         mov 1,r7
-        st.b r7 (channel_on'lo + 0)[R_ram_base]
-        st.b r7 (channel_on'lo + 1)[R_ram_base]
-        st.b r7 (channel_on'lo + 2)[R_ram_base]
-        st.b r7 (channel_on'lo + 3)[R_ram_base]
-        st.b r7 (channel_on'lo + 4)[R_ram_base]
-        st.b r7 (channel_on'lo + 5)[R_ram_base]
+        st.b r7, (channel_on'lo + 0)[R_ram_base]
+        st.b r7, (channel_on'lo + 1)[R_ram_base]
+        st.b r7, (channel_on'lo + 2)[R_ram_base]
+        st.b r7, (channel_on'lo + 3)[R_ram_base]
+        st.b r7, (channel_on'lo + 4)[R_ram_base]
+        st.b r7, (channel_on'lo + 5)[R_ram_base]
      
         ret
         
